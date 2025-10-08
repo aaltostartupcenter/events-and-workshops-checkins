@@ -1,0 +1,10 @@
+# Ignore local configuration that contains secrets or environment-specific values
+config.json
+
+# Local environment files
+.env
+
+# Node / editor artifacts (if any)
+node_modules/
+.vscode/
+/*.log

@@ -1,0 +1,9 @@
+{
+  "name": "events-and-workshops-checkins",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build-config": "node ./build-config.js",
+    "start": "node ./build-config.js && python -m http.server 8000"
+  }
+}

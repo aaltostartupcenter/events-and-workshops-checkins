@@ -1,6 +1,31 @@
 const nameInput = document.querySelector('input[name="Name"]');
 const alertText = document.getElementById('alert-txt');
 const checkInButton = document.querySelector('.submit-check-in');
+const configWarning = document.getElementById('config-warning');
+
+// runtime-configured endpoint (populated from /config.json)
+let googleScriptUrl = null;
+
+// Try to load local config at runtime. This file should NOT be committed to git.
+fetch('/config.json')
+    .then(res => {
+        if (!res.ok) throw new Error('Config not found');
+        return res.json();
+    })
+    .then(cfg => {
+        if (cfg && cfg.googleScriptUrl) {
+            googleScriptUrl = cfg.googleScriptUrl;
+            // if form exists, set action so progressive enhancement works
+            const form = document.getElementById('check-in-form');
+            if (form) form.action = googleScriptUrl;
+            if (configWarning) configWarning.style.display = 'none';
+        } else {
+            if (configWarning) configWarning.style.display = 'block';
+        }
+    })
+    .catch(() => {
+        if (configWarning) configWarning.style.display = 'block';
+    });
 
 nameInput.addEventListener('input', function() {
 if (this.value.includes('@')) {
@@ -20,6 +45,14 @@ document.getElementById('check-in-form').addEventListener('submit', function(eve
 event.preventDefault();
 
 const form = event.target;
+    // guard: ensure we have a configured endpoint
+    if (!googleScriptUrl) {
+        configWarning.style.display = 'block';
+        alert('Form not configured. Please add a local config.json with your Google Script URL.');
+        return;
+    }
+    // set form action dynamically to keep the URL out of source control
+    form.action = googleScriptUrl;
 const formData = new FormData(form);
 const loadingContainer = document.querySelector('.loading-container');
 const successContainer = document.querySelector('.success-container');

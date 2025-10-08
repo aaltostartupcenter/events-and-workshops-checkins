@@ -43,8 +43,9 @@
             <p>Please check in your attendance <br>by typing in your <b>full name</b> and <b>event name.</b></p>
         </header>
         <main>
-            <form id="check-in-form" method="POST" action="https://script.google.com/macros/s/AKfycbw59to6mBvGoBfLFG0pwYzaQFdyH_koyeyTcbOafUlfGb7zgZ7UqnEpkgqQg6jjbFh6kg/exec">
-                <p class="notifi-input" id="alert-txt">Please use your full name (no @ symbols)</p>
+      <form id="check-in-form" method="POST">
+        <p class="notifi-input" id="alert-txt">Please use your full name (no @ symbols)</p>
+        <p class="notifi-input" id="config-warning" style="display:none;color:#b00020">Form not configured. Please add a local <code>config.json</code> (see <code>config.example.json</code>).</p>
                 <input name="Name" type="text" placeholder="Full Name" required>
                 <input name="EventName" type="text" placeholder="Event/Workshop Name" required>
                 <button class="submit-check-in" type="submit">Check in</button>
