@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Check-in</title>
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/png" href="/imgs/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!----------------------------------------------->
+    <!-- SUCCESS STATE -->
+    <!----------------------------------------------->
+    <div class="success-container">
+      <img id="success-icon" src="/imgs/tick.svg" alt="">
+      <h1 class="success-title">You're checked-in!</h1>
+      <p><span id="currentDate"></span></p>
+    </div>
+
+
+    <!----------------------------------------------->
+    <!-- LOADING STATE to SUCCESS STATE -->
+    <!----------------------------------------------->
+    <div class="loading-container">
+      <div class="loader"></div>
+    </div>
+
+
+    <!----------------------------------------------->
+    <!-- MAIN PAGE -->
+    <!----------------------------------------------->
+    <div class="logo-container">
+      <img src="/imgs/AaltoStartupCenter_ENG_WHITE_Long.png" alt="">
+    </div>
+  
+    <div class="main-container">
+        <header>
+            <h1 class="main-title">Check-in to the Event/Workshop</h1>
+            <p>Please check in your attendance <br>by typing in your <b>full name</b> and <b>event name.</b></p>
+        </header>
+        <main>
+            <form id="check-in-form" method="POST" action="https://script.google.com/macros/s/AKfycbw59to6mBvGoBfLFG0pwYzaQFdyH_koyeyTcbOafUlfGb7zgZ7UqnEpkgqQg6jjbFh6kg/exec">
+                <p class="notifi-input" id="alert-txt">Please use your full name (no @ symbols)</p>
+                <input name="Name" type="text" placeholder="Full Name" required>
+                <input name="EventName" type="text" placeholder="Event/Workshop Name" required>
+                <button class="submit-check-in" type="submit">Check in</button>
+            </form>
+        </main>
+    </div>
+
+
+    <!----------------------------------------------->
+    <!-- FOOTER -->
+    <!----------------------------------------------->
+    <footer>
+      <a href="https://www.startupcenter.aalto.fi/events">More events & workshops here</a>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>
