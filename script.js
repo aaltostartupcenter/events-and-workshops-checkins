@@ -2,9 +2,23 @@ const nameInput = document.querySelector('input[name="Name"]');
 const alertText = document.getElementById('alert-txt');
 const checkInButton = document.querySelector('.submit-check-in');
 const configWarning = document.getElementById('config-warning');
+const eventSelect = document.getElementById('event-select');
 
 // runtime-configured endpoint (populated from /config.json)
 let googleScriptUrl = null;
+let allEvents = [];
+
+// Load events from events.json
+fetch('/events.json')
+    .then(res => res.json())
+    .then(events => {
+        allEvents = events;
+        populateEventDropdown();
+    })
+    .catch(error => {
+        console.error('Error loading events:', error);
+        eventSelect.innerHTML = '<option value="">Error loading events</option>';
+    });
 
 // Try to load local config at runtime. This file should NOT be committed to git.
 fetch('/config.json')
@@ -26,6 +40,74 @@ fetch('/config.json')
     .catch(() => {
         if (configWarning) configWarning.style.display = 'block';
     });
+
+function populateEventDropdown() {
+    const now = new Date();
+    const currentWeekStart = getWeekStart(now);
+    const currentWeekEnd = new Date(currentWeekStart);
+    currentWeekEnd.setDate(currentWeekEnd.getDate() + 6);
+
+    // Filter events for current week
+    const weekEvents = allEvents.filter(event => {
+        const eventDate = new Date(event.date + 'T00:00:00');
+        return eventDate >= currentWeekStart && eventDate <= currentWeekEnd;
+    });
+
+    // Sort events by date and time
+    weekEvents.sort((a, b) => {
+        const dateA = new Date(a.date + 'T' + a.time);
+        const dateB = new Date(b.date + 'T' + b.time);
+        return dateA - dateB;
+    });
+
+    // Clear dropdown
+    eventSelect.innerHTML = '';
+
+    if (weekEvents.length === 0) {
+        eventSelect.innerHTML = '<option value="">No events this week</option>';
+        return;
+    }
+
+    // Find the event to auto-select (today's or next upcoming)
+    let selectedIndex = 0;
+    const today = now.toISOString().split('T')[0];
+    
+    for (let i = 0; i < weekEvents.length; i++) {
+        if (weekEvents[i].date >= today) {
+            selectedIndex = i;
+            break;
+        }
+    }
+
+    // Populate dropdown with formatted events
+    weekEvents.forEach((event, index) => {
+        const eventDate = new Date(event.date + 'T00:00:00');
+        const formattedDate = formatEventDate(eventDate);
+        const displayText = `${event.name} - ${formattedDate}, ${event.time}`;
+        
+        const option = document.createElement('option');
+        option.value = displayText;
+        option.textContent = displayText;
+        if (index === selectedIndex) {
+            option.selected = true;
+        }
+        eventSelect.appendChild(option);
+    });
+}
+
+function getWeekStart(date) {
+    const d = new Date(date);
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust for Monday start
+    const weekStart = new Date(d.setDate(diff));
+    weekStart.setHours(0, 0, 0, 0);
+    return weekStart;
+}
+
+function formatEventDate(date) {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${months[date.getMonth()]} ${date.getDate()}`;
+}
 
 nameInput.addEventListener('input', function() {
 if (this.value.includes('@')) {

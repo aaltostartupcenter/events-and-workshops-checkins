@@ -66,7 +66,8 @@ header p {
     display: none;
 }
 
-input[type="text"] {
+input[type="text"],
+select {
     width: 100%;
     padding: 15px;
     margin-bottom: 15px;
@@ -74,9 +75,12 @@ input[type="text"] {
     border-radius: 4px;
     font-size: 16px;
     transition: all 0.3s ease;
+    font-family: 'inter', sans-serif;
+    background-color: white;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+select:focus {
     outline: none;
     border-color: #667eea;
 }

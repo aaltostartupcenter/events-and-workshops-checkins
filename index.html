@@ -47,7 +47,10 @@
         <p class="notifi-input" id="alert-txt">Please use your full name (no @ symbols)</p>
         <p class="notifi-input" id="config-warning" style="display:none;color:#b00020">Form not configured. Please add a local <code>config.json</code> (see <code>config.example.json</code>).</p>
                 <input name="Name" type="text" placeholder="Full Name" required>
-                <input name="EventName" type="text" placeholder="Event/Workshop Name" required>
+                <input name="CompanyName" type="text" placeholder="Company Name (optional)">
+                <select name="EventName" id="event-select" required>
+                    <option value="">Loading events...</option>
+                </select>
                 <button class="submit-check-in" type="submit">Check in</button>
             </form>
         </main>
