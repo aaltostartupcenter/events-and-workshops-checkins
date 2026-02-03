@@ -34,13 +34,13 @@
     <!-- MAIN PAGE -->
     <!----------------------------------------------->
     <div class="logo-container">
-      <img src="/imgs/AaltoStartupCenter_ENG_WHITE_Long.png" alt="">
+      <img src="/imgs/logo.png" alt="">
     </div>
   
     <div class="main-container">
         <header>
             <h1 class="main-title">Check-in to the Event/Workshop</h1>
-            <p>Please check in your attendance <br>by typing in your <b>full name</b> and <b>event name.</b></p>
+            <p>Please check in your attendance.
         </header>
         <main>
       <form id="check-in-form" method="POST">
@@ -48,9 +48,28 @@
         <p class="notifi-input" id="config-warning" style="display:none;color:#b00020">Form not configured. Please add a local <code>config.json</code> (see <code>config.example.json</code>).</p>
                 <input name="Name" type="text" placeholder="Full Name" required>
                 <input name="CompanyName" type="text" placeholder="Company Name (optional)">
-                <select name="EventName" id="event-select" required>
+                
+                <!-- Hidden native select for form submission -->
+                <select name="EventName" id="event-select" required style="display: none;">
                     <option value="">Loading events...</option>
                 </select>
+                
+                <!-- Custom styled dropdown -->
+                <label class="dropdown-label" for="custom-select">Select Event</label>
+                <div class="custom-select-wrapper">
+                    <div class="custom-select" id="custom-select">
+                        <div class="custom-select-trigger">
+                            <span id="selected-event">Loading events...</span>
+                            <svg class="arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="custom-options" id="custom-options">
+                            <!-- Options will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
                 <button class="submit-check-in" type="submit">Check in</button>
             </form>
         </main>

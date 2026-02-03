@@ -80,20 +80,69 @@ function populateEventDropdown() {
     }
 
     // Populate dropdown with formatted events
+    const customOptions = document.getElementById('custom-options');
+    const selectedEventSpan = document.getElementById('selected-event');
+    customOptions.innerHTML = '';
+    
     weekEvents.forEach((event, index) => {
         const eventDate = new Date(event.date + 'T00:00:00');
         const formattedDate = formatEventDate(eventDate);
         const displayText = `${event.name} - ${formattedDate}, ${event.time}`;
         
+        // Add to hidden native select
         const option = document.createElement('option');
         option.value = displayText;
         option.textContent = displayText;
         if (index === selectedIndex) {
             option.selected = true;
+            selectedEventSpan.textContent = displayText;
         }
         eventSelect.appendChild(option);
+        
+        // Add to custom dropdown
+        const customOption = document.createElement('div');
+        customOption.className = 'custom-option';
+        if (index === selectedIndex) {
+            customOption.classList.add('selected');
+        }
+        customOption.textContent = displayText;
+        customOption.dataset.value = displayText;
+        
+        customOption.addEventListener('click', function() {
+            // Update hidden select
+            eventSelect.value = this.dataset.value;
+            
+            // Update display
+            selectedEventSpan.textContent = this.textContent;
+            
+            // Update selected class
+            document.querySelectorAll('.custom-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            this.classList.add('selected');
+            
+            // Close dropdown
+            document.getElementById('custom-select').classList.remove('open');
+        });
+        
+        customOptions.appendChild(customOption);
     });
 }
+
+// Custom dropdown toggle
+document.getElementById('custom-select').addEventListener('click', function(e) {
+    if (!e.target.closest('.custom-option')) {
+        this.classList.toggle('open');
+    }
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const customSelect = document.getElementById('custom-select');
+    if (!customSelect.contains(e.target)) {
+        customSelect.classList.remove('open');
+    }
+});
 
 function getWeekStart(date) {
     const d = new Date(date);
