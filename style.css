@@ -26,11 +26,11 @@ body {
 }
 
 .logo-container img {
-    height: 50px;
+    height: 40px;
 }
 
 .main-container {
-    background: rgba(255, 255, 255, 0.9);
+    /*background: rgba(255, 255, 255, 0.9);*/
     border-radius: 2px;
     padding: 30px 25px 30px 25px;
     max-width: 500px;
@@ -57,7 +57,7 @@ header {
 }
 
 header p {
-    color: #666;
+    color: #2f2f2f;
     line-height: 1.4;
     font-size: 16px;
     text-wrap: balance;
@@ -75,12 +75,14 @@ select {
     width: 100%;
     padding: 15px;
     margin-bottom: 15px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid #00000068;
     border-radius: 4px;
     font-size: 16px;
     transition: all 0.3s ease;
     font-family: 'inter', sans-serif;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.364);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
@@ -98,11 +100,16 @@ input[type="text"] {
     padding-right: 15px;
 }
 
+input[type="text"]::placeholder {
+    color: #303030;
+    opacity: 1;
+}
+
 input[type="text"]:focus,
 select:focus {
     outline: none;
-    border-color: #FFD400;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #00000097;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
 }
 
 /* Custom Dropdown Styling */
@@ -129,9 +136,11 @@ select:focus {
     width: 100%;
     padding: 15px;
     padding-right: 45px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid #00000068;
     border-radius: 4px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.364);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -143,11 +152,11 @@ select:focus {
 }
 
 .custom-select-trigger:hover {
-    border-color: #FFD400;
+    border-color: #00000097;
 }
 
 .custom-select.open .custom-select-trigger {
-    border-color: #FFD400;
+    border-color: #00000097;
     box-shadow: 0 0 0 3px rgba(255, 212, 0, 0.1);
 }
 
@@ -155,7 +164,7 @@ select:focus {
     position: absolute;
     right: 15px;
     transition: transform 0.3s ease;
-    color: #666;
+    color: #2f2f2f;
 }
 
 .custom-select.open .custom-select-trigger .arrow-icon {
@@ -167,7 +176,9 @@ select:focus {
     top: 100%;
     left: 0;
     right: 0;
-    background: #ffffff;
+    background: #ffffffc1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 8px;
     margin-top: 8px;
     margin-bottom: 30px;
@@ -239,12 +250,12 @@ select:focus {
 .submit-check-in {
     width: 100%;
     font-family: 'inter', sans-serif;
-    padding: 15px;
-    background-color: #FFD400;
-    color: white;
+    padding: 18px;
+    background-color: #ffffff;
+    color: rgb(27, 27, 27);
     border: none;
     border-radius: 2px;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.2s ease;
